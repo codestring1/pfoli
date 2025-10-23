@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudda Navya Sri - Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        'dark-bg': '#0f172a',
+                        'dark-card': '#1e293b',
+                        'accent-teal': '#06b6d4',
+                        'accent-blue': '#3b82f6'
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'slide-in-left': 'slideInLeft 0.6s ease-out',
+                        'slide-in-right': 'slideInRight 0.6s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'gradient-shift': 'gradientShift 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        gradientShift: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(6, 182, 212, 0.5)' },
+                            '100%': { boxShadow: '0 0 30px rgba(6, 182, 212, 0.8)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(6, 182, 212, 0.3);
+        }
+        
+        .skill-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-icon:hover {
+            transform: translateY(-5px) rotate(5deg) scale(1.1);
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 0.15em solid #06b6d4;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #06b6d4 }
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(6, 182, 212, 0.6);
+            border-radius: 50%;
+            animation: float 4s infinite ease-in-out;
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            filter: drop-shadow(0 10px 15px rgba(6, 182, 212, 0.4));
+        }
+    </style>
+</head>
+
+<body class="bg-slate-900 text-white font-inter overflow-x-hidden">
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 nav-blur border-b border-slate-700/50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="text-2xl font-bold text-gradient">
+                    Navya Sri
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="hover:text-accent-teal transition-colors duration-300">Home</a>
+                    <a href="#about" class="hover:text-accent-teal transition-colors duration-300">About</a>
+                    <a href="#projects" class="hover:text-accent-teal transition-colors duration-300">Projects</a>
+                    <a href="#contact" class="hover:text-accent-teal transition-colors duration-300">Contact</a>
+                    <button class="bg-gradient-to-r from-accent-teal to-accent-blue px-6 py-2 rounded-full font-semibold hover:shadow-lg hover:shadow-accent-teal/50 transform hover:scale-105 transition-all duration-300">
+                        Hire Me
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+                    <span id="hamburger" class="block">☰</span>
+                    <span id="close" class="hidden">✕</span>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu fixed top-full left-0 w-full h-screen bg-slate-900/95 nav-blur md:hidden">
+                <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+                    <a href="#home" class="hover:text-accent-teal transition-colors duration-300 mobile-link">Home</a>
+                    <a href="#about" class="hover:text-accent-teal transition-colors duration-300 mobile-link">About</a>
+                    <a href="#projects" class="hover:text-accent-teal transition-colors duration-300 mobile-link">Projects</a>
+                    <a href="#contact" class="hover:text-accent-teal transition-colors duration-300 mobile-link">Contact</a>
+                    <button class="bg-gradient-to-r from-accent-teal to-accent-blue px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-accent-teal/50 transform hover:scale-105 transition-all duration-300">
+                        Hire Me
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Floating Particles -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 0.5s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 1.5s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 2.5s;"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="container mx-auto px-6 text-center z-10">
+            <div class="fade-in-up">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 typewriter">
+                    Hi, I'm <span class="text-gradient">Navya Sri</span>
+                </h1>
+            </div>
+            
+            <div class="fade-in-up" style="animation-delay: 0.2s;">
+                <h2 class="text-xl md:text-2xl lg:text-3xl mb-8 text-gray-300 animate-pulse-slow">
+                    I'm a <span class="text-accent-teal font-semibold">Software Engineer</span> specializing in building exceptional digital experiences
+                </h2>
+            </div>
+            
+            <div class="fade-in-up" style="animation-delay: 0.4s;">
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-gray-400 leading-relaxed">
+                    I am an aspiring software engineer with a strong passion for Java development, problem-solving, and building real-world applications. I enjoy exploring new technologies and improving my coding skills through hands-on projects and challenges.
+                </p>
+            </div>
+            
+            <div class="fade-in-up" style="animation-delay: 0.6s;">
+                <a href="#projects" class="bg-gradient-to-r from-accent-teal to-accent-blue px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-accent-teal/50 transform hover:scale-110 transition-all duration-300 inline-block animate-glow">
+                    View My Work
+                </a>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
+                <div class="w-6 h-10 border-2 border-accent-teal rounded-full flex justify-center">
+                    <div class="w-1 h-3 bg-accent-teal rounded-full mt-2 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-20 bg-slate-800/50 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">About Me</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-teal to-accent-blue mx-auto"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Profile Image -->
+                <div class="fade-in-up">
+                    <div class="relative">
+                        <div class="w-80 h-80 mx-auto rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500 animate-float">
+                            <img src="https://placehold.co/400x400/333/fff?text=Navya+Sri" alt="Navya Sri" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-accent-teal to-accent-blue rounded-full opacity-20 animate-pulse"></div>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-accent-blue to-purple-500 rounded-full opacity-20 animate-pulse" style="animation-delay: 1s;"></div>
+                    </div>
+                </div>
+                
+                <!-- Bio Content -->
+                <div class="fade-in-up space-y-6">
+                    <div class="space-y-4 text-gray-300 text-lg leading-relaxed">
+                        <p>
+                            I am an aspiring software engineer with a strong passion for Java development, problem-solving, and building real-world applications. I enjoy exploring new technologies and improving my coding skills through hands-on projects and challenges.
+                        </p>
+                        <p>
+                            My goal is to work in a top tech company where I can apply my technical knowledge, contribute to impactful projects, and continue learning as a professional developer. I'm always excited about new challenges and opportunities to grow.
+                        </p>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6 mt-8">
+                        <div class="text-center p-4 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors duration-300">
+                            <div class="text-2xl font-bold text-accent-teal mb-1">10+</div>
+                            <div class="text-sm text-gray-400">Projects</div>
+                        </div>
+                        <div class="text-center p-4 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors duration-300">
+                            <div class="text-2xl font-bold text-accent-teal mb-1">5+</div>
+                            <div class="text-sm text-gray-400">Technologies</div>
+                        </div>
+                        <div class="text-center p-4 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors duration-300">
+                            <div class="text-2xl font-bold text-accent-teal mb-1">100%</div>
+                            <div class="text-sm text-gray-400">Dedication</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skills Section -->
+            <div class="mt-20">
+                <div class="fade-in-up text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-4 text-gradient">My Skills</h3>
+                    <p class="text-gray-400 text-lg">Technologies I work with</p>
+                </div>
+                
+                <div class="fade-in-up grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    <!-- JavaScript -->
+                    <div class="skill-icon bg-slate-700/30 hover:bg-slate-700/50 p-6 rounded-xl text-center group transition-all duration-300">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg viewBox="0 0 24 24" class="w-12 h-12 mx-auto fill-yellow-400">
+                                <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold">JavaScript</div>
+                    </div>
+                    
+                    <!-- Java -->
+                    <div class="skill-icon bg-slate-700/30 hover:bg-slate-700/50 p-6 rounded-xl text-center group transition-all duration-300">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg viewBox="0 0 24 24" class="w-12 h-12 mx-auto fill-red-500">
+                                <path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639"/>
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold">Java</div>
+                    </div>
+                    
+                    <!-- Python -->
+                    <div class="skill-icon bg-slate-700/30 hover:bg-slate-700/50 p-6 rounded-xl text-center group transition-all duration-300">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg viewBox="0 0 24 24" class="w-12 h-12 mx-auto fill-blue-400">
+                                <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.26-.02.21-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25c-.2 0-.38.09-.5.25-.12.16-.18.38-.18.62 0 .25.06.47.18.63.12.16.3.25.5.25.2 0 .38-.09.5-.25.12-.16.18-.38.18-.63 0-.24-.06-.46-.18-.62-.12-.16-.3-.25-.5-.25z"/>
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold">Python</div>
+                    </div>
+                    
+                    <!-- React -->
+                    <div class="skill-icon bg-slate-700/30 hover:bg-slate-700/50 p-6 rounded-xl text-center group transition-all duration-300">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg viewBox="0 0 24 24" class="w-12 h-12 mx-auto fill-cyan-400">
+                                <path d="M14.23 12.004c2.235 0 4.044-1.809 4.044-4.043S16.465 3.918 14.23 3.918s-4.043 1.809-4.043 4.043 1.808 4.043 4.043 4.043zM12 2.004c5.514 0 9.996 4.482 9.996 9.996S17.514 21.996 12 21.996 2.004 17.514 2.004 12 6.486 2.004 12 2.004z"/>
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold">React</div>
+                    </div>
+                    
+                    <!-- Figma -->
+                    <div class="skill-icon bg-slate-700/30 hover:bg-slate-700/50 p-6 rounded-xl text-center group transition-all duration-300">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg viewBox="0 0 24 24" class="w-12 h-12 mx-auto fill-purple-400">
+                                <path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.354-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.015-4.49-4.49S5.672 0 8.148 0h4.587v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.587v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.019 3.019 3.019h3.117v-6.038H8.148z"/>
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold">Figma</div>
+                    </div>
+                    
+                    <!-- MySQL -->
+                    <div class="skill-icon bg-slate-700/30 hover:bg-slate-700/50 p-6 rounded-xl text-center group transition-all duration-300">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg viewBox="0 0 24 24" class="w-12 h-12 mx-auto fill-orange-500">
+                                <path d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.168-.18-.062-.017-.087-.048-.121-.08-.033-.018-.06-.019-.093-.04zm4.17 2.018c-.013-.002-.014 0-.027 0-.015.146-.129.279-.288.394-.22.163-.457.251-.61.49-.045.07-.070.15-.09.23-.586.395-1.554.626-2.332.394-.22-.066-.457-.162-.555-.394-.033-.3.002-.672.005-.998.024-.52-.024-1.024.024-1.49.047-.776.138-1.624.394-2.20.24-.562.693-.933.1-1.5-.24-.215-.357-.548-.649-.676-.389-.17-.82-.017-1.24.028-.028.005-.06.025-.094.025.814-.814 1.939-1.355 3.312-1.416.394-.018.740.005 1.0.08.857.272 1.469.75 1.88 1.368.45.675.319 1.284.154 2.18-.129.676-.316 1.391-.462 2.064h.014c.52.162 1.129.394 1.555.756.978.825 1.516 1.687 1.448 2.71-.05.758-.357 1.333-.902 1.705 2.332-1.382 4.213-4.075 4.213-7.094C19.749 5.9 18.17 3.999 16.405 5.501z"/>
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold">MySQL</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-slate-900 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">Featured Projects</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-teal to-accent-blue mx-auto mb-6"></div>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Here are some of the projects I've worked on recently</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Online Book Store -->
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/444/fff?text=Online+Book+Store" alt="Online Book Store" class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-accent-teal/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-accent-teal border border-accent-teal/30">
+                            Full-Stack
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">Online Book Store</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-3">
+                            Developed a full-stack Java web application for browsing, purchasing, and reviewing books. Features secure user authentication, book search, shopping cart, order tracking, admin dashboard.
+                        </p>
+                        
+                        <!-- Tech Tags -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded text-xs font-medium border border-yellow-500/30">Java</span>
+                            <span class="bg-blue-500/20 text-blue-300 px-2 py-1 rounded text-xs font-medium border border-blue-500/30">JDBC</span>
+                            <span class="bg-orange-500/20 text-orange-300 px-2 py-1 rounded text-xs font-medium border border-orange-500/30">MySQL</span>
+                            <span class="bg-red-500/20 text-red-300 px-2 py-1 rounded text-xs font-medium border border-red-500/30">HTML</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-2 py-1 rounded text-xs font-medium border border-purple-500/30">CSS</span>
+                            <span class="bg-green-500/20 text-green-300 px-2 py-1 rounded text-xs font-medium border border-green-500/30">JavaScript</span>
+                        </div>
+                        
+                        <!-- Project Links -->
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/Navya-sri-05/bookstore" target="_blank" class="flex-1 bg-slate-700/50 hover:bg-slate-700 border border-slate-600 text-center py-2 rounded-lg transition-all duration-300 hover:border-accent-teal group">
+                                <span class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2 group-hover:text-accent-teal" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    GitHub
+                                </span>
+                            </a>
+                            <a href="#" class="flex-1 bg-gradient-to-r from-accent-teal to-accent-blue text-center py-2 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-teal/50 font-semibold">
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Password Strength Checker -->
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm" style="animation-delay: 0.2s;">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/444/fff?text=Password+Checker" alt="Password Strength Checker" class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-accent-blue/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-accent-blue border border-accent-blue/30">
+                            Frontend
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">Password Strength Checker</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-3">
+                            A web app providing real-time password strength analysis using a dynamic strength bar and helpful hints for creating secure passwords.
+                        </p>
+                        
+                        <!-- Tech Tags -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded text-xs font-medium border border-yellow-500/30">JavaScript</span>
+                            <span class="bg-red-500/20 text-red-300 px-2 py-1 rounded text-xs font-medium border border-red-500/30">HTML</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-2 py-1 rounded text-xs font-medium border border-purple-500/30">CSS</span>
+                        </div>
+                        
+                        <!-- Project Links -->
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/Navya-sri-05/password-checker" target="_blank" class="flex-1 bg-slate-700/50 hover:bg-slate-700 border border-slate-600 text-center py-2 rounded-lg transition-all duration-300 hover:border-accent-teal group">
+                                <span class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2 group-hover:text-accent-teal" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    GitHub
+                                </span>
+                            </a>
+                            <a href="#" class="flex-1 bg-gradient-to-r from-accent-teal to-accent-blue text-center py-2 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-teal/50 font-semibold">
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3: SignBridge -->
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm" style="animation-delay: 0.4s;">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/444/fff?text=SignBridge" alt="SignBridge: Sign Language Translator" class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-purple-500/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-purple-300 border border-purple-500/30">
+                            AI/ML
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">SignBridge: Sign Language Translator</h3>
+                        <p class="text-gray-400 mb-4 line-clamp-3">
+                            AI-driven sign-language speech/text translator using computer vision and 3D avatars for accessible, real-time inclusive conversations.
+                        </p>
+                        
+                        <!-- Tech Tags -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded text-xs font-medium border border-yellow-500/30">JavaScript</span>
+                            <span class="bg-green-500/20 text-green-300 px-2 py-1 rounded text-xs font-medium border border-green-500/30">AI</span>
+                            <span class="bg-blue-500/20 text-blue-300 px-2 py-1 rounded text-xs font-medium border border-blue-500/30">Computer Vision</span>
+                            <span class="bg-red-500/20 text-red-300 px-2 py-1 rounded text-xs font-medium border border-red-500/30">HTML</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-2 py-1 rounded text-xs font-medium border border-purple-500/30">CSS</span>
+                        </div>
+                        
+                        <!-- Project Links -->
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/Navya-sri-05/signbridge" target="_blank" class="flex-1 bg-slate-700/50 hover:bg-slate-700 border border-slate-600 text-center py-2 rounded-lg transition-all duration-300 hover:border-accent-teal group">
+                                <span class="flex items-center justify-center">
+                                    <svg class="w-4 h-4 mr-2 group-hover:text-accent-teal" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    GitHub
+                                </span>
+                            </a>
+                            <a href="#" class="flex-1 bg-gradient-to-r from-accent-teal to-accent-blue text-center py-2 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-teal/50 font-semibold">
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-800/30 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">Get In Touch</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-teal to-accent-blue mx-auto mb-6"></div>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">I'm always interested in new opportunities and collaborations. Let's connect!</p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="fade-in-up bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="name" class="text-sm font-semibold text-gray-300">Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:border-accent-teal focus:ring-2 focus:ring-accent-teal/20 transition-all duration-300 text-white placeholder-gray-400" placeholder="Your Name" required>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="email" class="text-sm font-semibold text-gray-300">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:border-accent-teal focus:ring-2 focus:ring-accent-teal/20 transition-all duration-300 text-white placeholder-gray-400" placeholder="your.email@example.com" required>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="message" class="text-sm font-semibold text-gray-300">Message</label>
+                            <textarea id="message" name="message" rows="6" class="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:border-accent-teal focus:ring-2 focus:ring-accent-teal/20 transition-all duration-300 text-white placeholder-gray-400 resize-none" placeholder="Tell me about your project or just say hello!" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-gradient-to-r from-accent-teal to-accent-blue px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-teal/50 transform hover:scale-105 transition-all duration-300 w-full md:w-auto">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 py-12 border-t border-slate-700/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <!-- Social Links -->
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://github.com/Navya-sri-05" target="_blank" class="social-icon text-gray-400 hover:text-accent-teal text-2xl transition-all duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon text-gray-400 hover:text-accent-teal text-2xl transition-all duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon text-gray-400 hover:text-accent-teal text-2xl transition-all duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Copyright -->
+                <div class="text-gray-400 text-sm">
+                    <p>&copy; 2025 Mudda Navya Sri. All rights reserved.</p>
+                    <p class="mt-2">Built with ❤️ using Tailwind CSS</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburger = document.getElementById('hamburger');
+        const close = document.getElementById('close');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        let isMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.add('active');
+                hamburger.classList.add('hidden');
+                close.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('hidden');
+                close.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu when clicking on links
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('hidden');
+                close.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.getElementById('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in-up elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header Background on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(15, 23, 42, 0.95)';
+                header.style.borderBottomColor = 'rgba(71, 85, 105, 0.5)';
+            } else {
+                header.style.backgroundColor = 'rgba(15, 23, 42, 0.8)';
+                header.style.borderBottomColor = 'rgba(71, 85, 105, 0.3)';
+            }
+        });
+
+        // Typewriter Effect
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typewriter effect on page load
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.typewriter');
+            if (heroTitle) {
+                setTimeout(() => {
+                    heroTitle.style.animation = 'none';
+                    heroTitle.style.borderRight = '0.15em solid #06b6d4';
+                    heroTitle.style.animation = 'blink-caret 0.75s step-end infinite';
+                }, 3500);
+            }
+        });
+
+        // Parallax Effect for Hero Section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-gradient');
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // Dynamic Particle Animation
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 4 + 's';
+            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            
+            document.querySelector('.fixed.inset-0').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 6000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+
+        // Form Submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Simple validation
+            if (name && email && message) {
+                // Show success message
+                const button = this.querySelector('button[type="submit"]');
+                const originalText = button.textContent;
+                
+                button.textContent = 'Message Sent!';
+                button.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+                
+                // Reset form
+                this.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #06b6d4, #3b82f6)';
+                }, 3000);
+                
+                console.log('Form submitted:', { name, email, message });
+            }
+        });
+
+        // Add hover effects to project cards
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px) scale(1.02)';
+                card.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(6, 182, 212, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.boxShadow = 'none';
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // Lazy load images
+        const images = document.querySelectorAll('img');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.style.opacity = '1';
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => {
+            img.style.opacity = '0';
+            img.style.transition = 'opacity 0.5s ease';
+            imageObserver.observe(img);
+        });
+    </script>
+</body>
+</html>
